@@ -19,6 +19,9 @@ public class ProductController{
 
     @PostMapping("/products")
     public Product createProduct(@RequestBody CreateProductRequestDto productRequestDto) {
+        System.out.println("....request:"+ productRequestDto.getTitle());
+
+
         return productService.createProduct(
                 productRequestDto.getTitle(),
                 productRequestDto.getDescription(),
