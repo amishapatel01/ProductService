@@ -5,6 +5,7 @@ import dev.amisha.productservice.dtos.FakeStoreProductDto;
 import dev.amisha.productservice.models.Category;
 import dev.amisha.productservice.models.Product;
 import org.apache.catalina.authenticator.SavedRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
@@ -23,10 +24,16 @@ public class FakeStoreProductService implements ProductService{
 
 @Override
     public Product getSingleProduct(Long id){
-    RestTemplate restTemplate = new RestTemplate();
-    FakeStoreProductDto fakeStoreProductDto =  restTemplate.getForObject("https://fakestoreapi.com/products/" + id,
-                       FakeStoreProductDto.class);
+    // RestTemplate restTemplate = new RestTemplate();
+    // FakeStoreProductDto fakeStoreProductDto =  restTemplate.getForObject(
+    //       "https://fakestoreapi.com/products/" + id,
+    //              FakeS toreProductDto.class);
 
+            ResponseEntity<FakeStoreProductDto> responseEntity =  restTemplate.getForEntity(
+                    "https://fakestoreapi.com/products/" + id,
+                                FakeStoreProductDto.class);
+
+            FakeStoreProductDto fakeStoreProductDto = responseEntity.getBody();
 
     Product product = new Product();
     product.setId(fakeStoreProductDto.getId());
